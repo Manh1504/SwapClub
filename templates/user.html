@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang cá nhân - SwapClub</title>
+    <link rel="stylesheet" href="/static/css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <h1 class="logo">SwapClub</h1>
+            <!-- add linear gradient color to this header -->
+
+
+
+
+            <!-- <div class="header-actions">
+                <a href="index.html" class="header-link">
+                    <i class="fas fa-home"></i>
+                    Trang chủ
+                </a>
+                <div class="user-menu">
+                    <div class="user-avatar-small">
+                        <img src="https://via.placeholder.com/40" alt="Avatar">
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="profile-container">
+            <!-- User Info Section -->
+            <section class="user-info-section">
+                <div class="user-info-card">
+                    <div class="user-header">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/150" alt="Avatar">
+                            <!-- get from database -->
+                            <button class="edit-avatar-btn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="user-details">
+                            <h2 class="user-name">Nguyễn Văn A</h2>
+                            <p class="user-email">nguyenvana@email.com</p>
+                            <p class="user-joined">
+                                <i class="fas fa-calendar-alt"></i>
+                                Tham gia từ: Tháng 3, 2023
+                            </p>
+                            <button class="btn btn-outline edit-profile-btn">
+                                <i class="fas fa-edit"></i>
+                                Chỉnh sửa hồ sơ
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="user-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Đã mua</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Đã bán</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.8</div>
+                            <div class="stat-label">Đánh giá</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Navigation -->
+            <section class="profile-navigation">
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-target="purchase-history">
+                        <i class="fas fa-shopping-bag"></i>
+                        Lịch sử mua hàng
+                    </button>
+                    <button class="profile-tab" data-target="selling-history">
+                        <i class="fas fa-store"></i>
+                        Lịch sử bán hàng
+                    </button>
+                    <button class="profile-tab" data-target="favorites">
+                        <i class="fas fa-heart"></i>
+                        Yêu thích
+                    </button>
+                    <button class="profile-tab" data-target="settings">
+                        <i class="fas fa-cog"></i>
+                        Cài đặt
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tab Content -->
+            <section class="profile-content">
+                <!-- Purchase History Tab -->
+                <div id="purchase-history" class="tab-content active">
+                    <h3 class="tab-title">Lịch sử mua hàng</h3>
+                    
+                    <div class="purchase-filters">
+                        <div class="filter-group">
+                            <label for="purchase-status">Trạng thái:</label>
+                            <select id="purchase-status">
+                                <option value="all">Tất cả</option>
+                                <option value="completed">Đã hoàn thành</option>
+                                <option value="processing">Đang xử lý</option>
+                                <option value="cancelled">Đã hủy</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="purchase-date">Thời gian:</label>
+                            <select id="purchase-date">
+                                <option value="all">Tất cả</option>
+                                <option value="month">Tháng này</option>
+                                <option value="quarter">3 tháng gần đây</option>
+                                <option value="year">Năm nay</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="purchase-list">
+                        <!-- Purchase items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Selling History Tab -->
+                <div id="selling-history" class="tab-content">
+                    <h3 class="tab-title">Lịch sử bán hàng</h3>
+                    <p class="placeholder-text">Thông tin về các sản phẩm bạn đã bán sẽ hiển thị ở đây.</p>
+                </div>
+
+                <!-- Favorites Tab -->
+                <div id="favorites" class="tab-content">
+                    <h3 class="tab-title">Sản phẩm yêu thích</h3>
+                    <p class="placeholder-text">Các sản phẩm bạn đã đánh dấu yêu thích sẽ hiển thị ở đây.</p>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="tab-content">
+                    <h3 class="tab-title">Cài đặt tài khoản</h3>
+                    <p class="placeholder-text">Các tùy chọn cài đặt tài khoản sẽ hiển thị ở đây.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- incl phone number, banking account, avt -->
+
+    <!-- Edit Profile Modal -->
+    <div id="edit-profile-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chỉnh sửa hồ sơ</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Họ tên</label>
+                    <input type="text" id="edit-name" value="Nguyễn Văn A">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-email">Email</label>
+                    <input type="email" id="edit-email" value="nguyenvana@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-phone">Số điện thoại</label>
+                    <input type="text" id="edit-phone" value="0912345678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-address">Địa chỉ</label>
+                    <textarea id="edit-address" rows="3">123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh</textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    <button type="button" class="btn btn-outline cancel-edit">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 SwapClub - Nền tảng mua bán đồ dùng học tập đã qua sử dụng</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/user.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>

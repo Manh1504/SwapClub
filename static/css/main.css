@@ -1,0 +1,369 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* .inter-<uniquifier> {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+  } */
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #f9fafb, rgba(209, 250, 229, 0.3));
+    color: #333;
+    line-height: 1.6;
+
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: sticky;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(to right, #10b981, #14b8a6);
+    padding: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    posistion: sticky;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    justify-items: left;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+}
+
+.search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+.search-box input {
+    padding: 10px 10px 10px 36px;
+    border-radius: 4px;
+    border: none;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search-box input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #10b981, #14b8a6);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #059669, #0d9488);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #4b5563;
+}
+
+.btn-outline:hover {
+    background-color: #f9fafb;
+}
+
+/* Main Content Styles */
+main {
+    padding: 32px 0;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Listings Column */
+.listings-column h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.listing-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.listing-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.listing-card.selected {
+    box-shadow: 0 0 0 2px #10b981;
+    background: linear-gradient(to bottom right, #ecfdf5, #f0fdfa);
+}
+
+.listing-card-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listing-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.listing-card h3 {
+    margin-top: 12px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.listing-card .price {
+    margin-top: 4px;
+    font-weight: 600;
+    background: linear-gradient(to right, #10b981, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Detail Column */
+.detail-column {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0;
+    text-align: center;
+}
+
+.empty-state img {
+    opacity: 0.5;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.empty-state h3 {
+    margin-top: 24px;
+    font-size: 20px;
+    color: #6b7280;
+}
+
+.empty-state p {
+    margin-top: 8px;
+    color: #9ca3af;
+    max-width: 400px;
+}
+
+.empty-state button {
+    margin-top: 24px;
+}
+
+/* Item Detail */
+.item-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.item-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.item-detail-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.item-detail-header .price {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(to right, #10b981, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.item-detail-image {
+    display: flex;
+    justify-content: center;
+}
+
+.item-detail-image img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.item-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.item-detail-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.item-detail-info p {
+    color: #4b5563;
+}
+
+.item-detail-actions {
+    padding-top: 16px;
+}
+
+.item-detail-actions button {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+}
+
+/* New Listing Form */
+.new-listing-form h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.image-upload {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+}
+
+.image-upload p {
+    color: #6b7280;
+}
+
+.image-upload button {
+    margin-top: 8px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 16px;
+    padding-top: 16px;
+}
+
+.form-actions button {
+    flex: 1;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Footer Styles */
+footer {
+    background-color: white;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 48px;
+    padding: 24px 0;
+    text-align: center;
+    color: #6b7280;
+}

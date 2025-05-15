@@ -1,0 +1,3 @@
+dsign in / sign out: /login
+trang chu: /home
+thanh toan: /payment

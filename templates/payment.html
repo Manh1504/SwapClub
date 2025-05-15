@@ -1,104 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/payment.css">
-    <title>SwapClub - Payment</title>
-    
+    <title>Thanh Toán - SwapClub</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon_io/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">Swap<span>Club</span></div>
-            <div class="nav-links">
-                <!-- Nav links would go here -->
-            </div>
-        </header>
-        <main>
-            <div class="payment-section">
-                <h1>Phương thức thanh toán</h1>
-                <p>Hãy lựa chọn phương thức thanh toán mong muốn</p>
-                <div class="payment-options">
-                    <div class="payment-option" onclick="selectPayment('visa')">
-                        <!-- <div class="payment-option-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 324.68">
-                                <path fill="#00579F" d="M651.19,0c-70.93,0-134.32,36.9-134.32,107.23c0,79.58,111.54,85.7,111.54,126.16c0,16.9-19.13,32.27-51.79,32.27c-46.24,0-80.58-20.8-80.58-20.8l-14.72,68.67c0,0,39.32,17.34,91.68,17.34c77.33,0,139.4-38.4,139.4-108.3c0-82.87-112.2-87.59-112.2-125.62c0-13.05,15.64-27.95,47.46-27.95c36.11,0,65.74,14.89,65.74,14.89l14.4-66.73C727.8,16.98,696.09,0,651.19,0"/>
-                                <path fill="#00579F" d="M217.99,5.42L132.59,318.26h84.37L302.3,5.42H217.99z"/>
-                                <path fill="#00579F" d="M884.59,5.42c-17.9,0-33,9.8-39.82,24.88L739.3,318.26h84.69l14.6-42.63h93.97l9.03,42.63h74.76L954.15,5.42H884.59z M859.54,211.99c6.49-17.76,30.2-86.14,30.2-86.14s6.05-16.77,9.73-27.45l4.88,23.91c0,0,14.5,70.21,17.62,89.67H859.54z"/>
-                                <path fill="#00579F" d="M392.67,5.42L323.06,218.63l-7.34-38.05c-12.79-43.28-52.62-90.08-97.14-113.31l62.88,249.76l84.44-0.58L467.34,5.42H392.67z"/>
-                                <path fill="#FAA61A" d="M135.73,5.42H0.49L0,9.64c104.85,26.89,174.43,91.93,202.97,170.11L173.34,30.93C168.81,12.43,153.85,6.41,135.73,5.42"/>
-                            </svg>
-                        </div> -->
-                        <i class="fas fa-credit-card"></i>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <h1 class="logo">SwapClub</h1>
+            <!-- <div window.location.href ="/home">
+                <a  class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại
+                </a>
+            </div> -->
+        </div>
+    </header>
 
-                        <div>
-                            <div><strong>Thẻ Visa</strong></div>
-                            <div class="text-muted">Thanh toán với thẻ Visa hoặc thẻ ghi nợ</div>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="selectPayment('apple')">
-                        <!-- <div class="payment-option-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-                                <path d="M979.04,409.5c-1.52-153.05-125.66-226.75-129.3-230.4-70.38-49.4-168.87-55.15-211.08-56.68-89.25-5.53-174.41,25.84-219.92,25.84-45.76,0-116.14-25.08-191.45-24.32C131.58,124.7,43.09,182.8,0,273.58c-89.25,154.57,22.2,383.36,64.03,508.27,42.88,61.78,93.8,131.18,160.96,128.54,64.79-2.28,89.25-41.61,167.35-41.61s100.2,41.61,168.87,40.09c69.62-1.52,113.78-63.3,156.65-125.14,49.4-71.9,69.62-141.52,70.38-145.16C787.59,637.29,980.56,590.01,979.04,409.5L979.04,409.5z" fill="#000"/>
-                                <path d="M634.95,111.49c35.61-43.13,59.66-102.79,53.05-162.47c-51.3,2.28-113.09,34.09-149.59,77.22c-32.66,38.26-61.29,99.54-53.81,158.44C546.2,190.01,599.25,154.5,634.95,111.49L634.95,111.49z" fill="#000"/>
-                            </svg>
-                        </div> -->
-                        <div><i class="fab fa-apple-pay"></i></div>
-                        <div>
-                            <strong>Apple Pay</strong>
-                            <div class="text-muted">Thanh toán nhanh chóng và bảo mật với Apple Pay</div>
-                        </div>
-                    </div>
-                    <div class="payment-option" onclick="selectPayment('momo')">
-                        <!-- <div class="payment-option-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                                <rect width="100" height="100" rx="20" fill="#ae2070"/>
-                                <path d="M50,20c-16.57,0-30,13.43-30,30s13.43,30,30,30s30-13.43,30-30S66.57,20,50,20z M40,65c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5 S42.76,65,40,65z M40,45c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5S42.76,45,40,45z M50,55c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5 S52.76,55,50,55z M60,65c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5S62.76,65,60,65z M60,45c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5 S62.76,45,60,45z" fill="white"/>
-                            </svg>
-                        </div> -->
-                        <i class="fas fa-wallet"></i>
-
-                        <div> 
-                            <strong>Momo</strong>
-                            <div class="text-muted">Thanh toán với ví điện tử Momo</div>
-                        </div>
-                    </div>
-                </div>
-                <div id="visa-details" class="payment-details">
-                    <h2>Pay with Visa Card</h2>
-                    <button type="button" class="btn-pay" id="payment_initialized">Pay Now</button>
-                </div>
-                <div id="apple-details" class="payment-details">
-                    <h2>Pay with Apple Pay</h2>
-                    <button type="button" class="btn-pay" id="payment_initialized">Pay Now</button>
-                </div>
-                <div id="momo-details" class="payment-details">
-                    <h2>Pay with Momo</h2>
-                    <button type="button" class="btn-pay" id="payment_initialized">Pay Now</button>
-                </div>
-            </div>
+    <!-- Main Content -->
+    <main class="container">
+        <div class="payment-container">
+            <!-- Order Summary -->
             <div class="order-summary">
-                <h2>Hoá đơn</h2>
-                <div class="order-summary-item">
-                    <span>Tổng tiền hàng</span>
-                    <span>$29.99</span>
-                </div>
-                <div class="order-summary-item">
-                    <span>Phí dịch vụ</span>
-                    <span>$0.00</span>
-                </div>
-                <div class="order-total">
-                    <span>Tổng</span>
-                    <span>$29.99</span>
+                <h2>Thông tin đơn hàng</h2>
+                <div class="summary-card">
+                    <div id="item-summary" class="summary-content">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
-        </main>
-        <footer>
-            <p>&copy; 2025 SwapClub. All rights reserved.</p>
-        </footer>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/static/payment.js"></script>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h2>Chọn phương thức thanh toán</h2>
+                
+                <div class="payment-options-grid">
+                    <div class="payment-option-card" data-method="card">
+                        <div class="payment-option-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="payment-option-name">Thẻ tín dụng/ghi nợ</div>
+                    </div>
+                    
+                    <div class="payment-option-card" data-method="apple-pay">
+                        <div class="payment-option-icon">
+                            <i class="fab fa-apple-pay"></i>
+                        </div>
+                        <div class="payment-option-name">Apple Pay</div>
+                    </div>
+                    
+                    <div class="payment-option-card" data-method="visa">
+                        <div class="payment-option-icon">
+                            <i class="fab fa-cc-visa"></i>
+                        </div>
+                        <div class="payment-option-name">Visa</div>
+                    </div>
+                    
+                    <div class="payment-option-card" data-method="momo">
+                        <div class="payment-option-icon momo-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="payment-option-name">MoMo</div>
+                    </div>
+                </div>
+
+                <div class="payment-actions">
+                    <button id="complete-payment" class="btn btn-primary" disabled>Hoàn tất thanh toán</button>
+                    <a onclick="cancel()" class="btn btn-outline">Hủy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Thanh toán thành công!</h2>
+                <p>Cảm ơn bạn đã mua hàng tại SwapClub.</p>
+                <p class="transaction-info">Thông tin giao dịch đã được lưu lại.</p>
+                <button id="back-to-home" class="btn btn-primary">Quay lại trang chủ</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 SwapClub - Nền tảng mua bán đồ dùng học tập đã qua sử dụng</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/payment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwapClub - Mua bán đồ dùng học tập đã qua sử dụng</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon_io/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container" style="position: sticky;">
+            <h1 class="logo">SwapClub</h1>
+            <div class="search-container">
+                <div class="search-box">
+                    <!-- <i class="fas fa-search"></i> -->
+                    <input type="text" id="search-input" placeholder="Tìm kiếm đồ dùng học tập...">
+                </div>
+                <button class="btn btn-primary" id="new-listing-btn">
+                    <i class="fas fa-plus"></i>
+                    Đăng bài mới
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="main-grid">
+            <!-- Listings Column -->
+            <div class="listings-column">
+                <h2>Đồ dùng học tập đã qua sử dụng</h2>
+                <div id="listings-container">
+                    <!-- Listings will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Detail View Column -->
+            <div class="detail-column">
+                <div id="detail-container">
+                    <!-- Default empty state -->
+                    <div id="payment-section">
+                        <!-- <button class="btn btn-primary" onclick="window.location.href ='/frontend/html/payment.html'">Thanh toán ngay</button> -->
+                    </div>
+                    <div id="empty-state" class="empty-state">
+                        <!-- <img src="https://via.placeholder.com/200" alt="Select an item"> -->
+                        <h3>Chọn một sản phẩm để xem chi tiết</h3>
+                        <p>Hoặc đăng bài mới để bán đồ dùng học tập của bạn</p>
+                        <button class="btn btn-primary" id="empty-new-listing-btn">
+                            <i class="fas fa-plus"></i>
+                            Đăng bài mới
+                        </button>
+                    </div>
+
+                    <!-- Item detail view (hidden by default) -->
+                    <div id="item-detail" class="item-detail hidden">
+                        <!-- Content will be inserted by JavaScript -->
+                    </div>
+
+                    <!-- New listing form (hidden by default) -->
+                    <div id="new-listing-form" class="new-listing-form hidden">
+                        <h2>Đăng bài mới</h2>
+                        <form id="listing-form">
+                            <div class="form-group">
+                                <label for="title">Tiêu đề</label>
+                                <input type="text" id="title" placeholder="Nhập tiêu đề bài đăng" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="price">Giá bán</label>
+                                <input type="text" id="price" placeholder="Ví dụ: 100.000đ" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description">Mô tả chi tiết</label>
+                                <textarea id="description" placeholder="Mô tả chi tiết về sản phẩm của bạn" rows="5" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="image">Hình ảnh</label>
+                                <div class="image-upload">
+                                    <p>Kéo thả hình ảnh vào đây hoặc</p>
+                                    <!-- <button type="button" class="btn btn-outline">Chọn file</button> -->
+                                    <input type="file" id="image" accept="image/*" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact">Thông tin liên hệ</label>
+                                <input type="text" id="contact" placeholder="Số điện thoại hoặc email" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Đăng bài</button>
+                                <button type="button" class="btn btn-outline" id="cancel-btn">Hủy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 SwapClub - Nền tảng mua bán đồ dùng học tập đã qua sử dụng</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <!-- <script src="{{ url_for('static', filename='js/index.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

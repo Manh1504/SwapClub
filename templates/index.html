@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwapClub</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon_io/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <h1 class="logo">SwapClub</h1>
+            <!-- <a window.location.href="/login" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Quay lại trang chủ
+            </a> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-target="signin-form">Đăng nhập</button>
+                    <button class="auth-tab" data-target="signup-form">Đăng ký</button>
+                </div>
+
+                <!-- Sign In Form -->
+                <div id="signin-form" class="auth-form active">
+                    <h2>Đăng nhập vào SwapClub</h2>
+                    <p class="auth-subtitle">Chào mừng trở lại! Đăng nhập để tiếp tục.</p>
+
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-envelope"></i> -->
+                                <input type="email" id="login-email" placeholder="Email của bạn" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <div class="password-label-wrapper">
+                                <label for="login-password">Mật khẩu</label>
+                                <a href="#" class="forgot-password">Quên mật khẩu?</a>
+                            </div> -->
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-lock"></i> -->
+                                <input type="password" id="login-password" placeholder="Mật khẩu của bạn" required>
+                                <button type="button" class="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group remember-me">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Ghi nhớ đăng nhập
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </form>
+
+                    <div class="social-login">
+                        <p class="divider"><span>Hoặc đăng nhập với</span></p>
+                        <div class="social-buttons">
+                            <button class="social-btn google">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                            <button class="social-btn apple">
+                                <i class="fab fa-apple"></i>
+                                Apple
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sign Up Form -->
+                <div id="signup-form" class="auth-form">
+                    <h2>Tạo tài khoản SwapClub</h2>
+                    <p class="auth-subtitle">Đăng ký để bắt đầu mua bán đồ dùng học tập!</p>
+
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-name">Họ và tên</label>
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-user"></i> -->
+                                <input type="text" id="register-name" placeholder="Họ tên của bạn" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-envelope"></i> -->
+                                <input type="email" id="register-email" placeholder="Email của bạn" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password">Mật khẩu</label>
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-lock"></i> -->
+                                <input type="password" id="register-password" placeholder="Tạo mật khẩu" required>
+                                <button type="button" class="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirm-password">Xác nhận mật khẩu</label>
+                            <div class="input-icon-wrapper">
+                                <!-- <i class="fas fa-lock"></i> -->
+                                <input type="password" id="register-confirm-password" placeholder="Nhập lại mật khẩu" required>
+                                <button type="button" class="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group terms-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="agree-terms" required>
+                                <span class="checkmark"></span>
+                                Tôi đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                    </form>
+
+                    <div class="social-login">
+                        <p class="divider"><span>Hoặc đăng ký với</span></p>
+                        <div class="social-buttons">
+                            <button class="social-btn google">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                            <button class="social-btn apple">
+                                <i class="fab fa-apple"></i>
+                                Apple
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- <img src="/static/images/SC logo.jpg" alt="SwapClub Logo" class="img-logo"> -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="futo">
+            <p>© 2025 SwapClub - Nền tảng mua bán đồ dùng học tập đã qua sử dụng</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/index.js"></script>
+    <!-- <script src="{{ url_for('static', filename='js/index.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script> 
+</body>
+</html>
