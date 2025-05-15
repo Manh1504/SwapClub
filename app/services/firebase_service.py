@@ -17,13 +17,7 @@ def init_firebase():
     global firebase_app, firestore_db, firebase, auth
 
     # Khởi tạo Firebase Admin SDK
-    cred = credentials.Certificate({
-        "type": "service_account",
-        "project_id": os.environ.get('FIREBASE_PROJECT_ID'),
-        # Bạn cần tạo service account key từ Firebase console
-        # và tải về file json, sau đó điền các thông tin vào đây
-        # hoặc lưu file json và load từ đường dẫn
-    })
+    cred = credentials.Certificate("swap.json")
 
     firebase_app = firebase_admin.initialize_app(cred)
     firestore_db = firestore.client()
