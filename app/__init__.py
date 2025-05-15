@@ -1,4 +1,6 @@
-from flask import Flask
+from os import sendfile
+
+from flask import Flask, send_file, render_template
 from flask_login import LoginManager
 from dotenv import load_dotenv
 import os
@@ -51,6 +53,6 @@ def create_app():
 
     @app.route('/')
     def index():
-        return redirect(url_for('products.list'))
+        return render_template('home.html')
 
     return app
