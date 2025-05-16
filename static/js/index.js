@@ -137,10 +137,10 @@ document.querySelector('.btn-primary.btn-block').addEventListener('click', funct
     // Check if this is the sign up form by checking if agree-terms exists
     const agreeTerms = document.getElementById('agree-terms');
     
-    if (agreeTerms && !agreeTerms.checked) {
-        e.preventDefault(); // Prevent form submission
-        alert('Vui lòng đồng ý với điều khoản sử dụng');
-    }
+//    if (agreeTerms && !agreeTerms.checked) {
+//        e.preventDefault(); // Prevent form submission
+//        alert('Vui lòng đồng ý với điều khoản sử dụng');
+//    }
 });
 
 // Initialize when DOM is loaded
