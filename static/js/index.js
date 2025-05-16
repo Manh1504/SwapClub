@@ -103,10 +103,10 @@ function setupEventListeners() {
             return;
         }
         
-        if (!agreeTerms) {
-            alert('Bạn cần đồng ý với điều khoản sử dụng để tiếp tục.');
-            return;
-        }
+//        if (!agreeTerms) {
+//            alert('Bạn cần đồng ý với điều khoản sử dụng để tiếp tục.');
+//            return;
+//        }
 
         fetch("http://" + hostname + port + "/login", {
             method: "POST",
