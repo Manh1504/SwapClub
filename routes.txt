@@ -1,3 +1,5 @@
 sign in / sign out: /login
 trang chu: /home
 thanh toan: /payment
+
+div bai viet o main rong 317px, cao 250 px
