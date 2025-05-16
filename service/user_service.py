@@ -4,7 +4,7 @@ from flask_jwt_extended import create_access_token
 
 class UserService:
     @staticmethod
-    def create_user(username, password):
+    def create_user(username, password, is_admin=False):
         """Create a new user"""
         # Check if username already exists
         existing_user = User.query.filter_by(username=username).first()
@@ -12,7 +12,7 @@ class UserService:
             return None, "Username already exists"
 
         # Create new user
-        user = User(username=username)
+        user = User(username=username, is_admin=is_admin)
         user.set_password(password)
 
         try:
@@ -42,3 +42,24 @@ class UserService:
         if not user:
             return None, "User not found"
         return user, None
+
+    @staticmethod
+    def get_all_users():
+        """Get all users (admin function)"""
+        users = User.query.all()
+        return [user.to_dict() for user in users]
+
+    @staticmethod
+    def delete_user(user_id):
+        """Delete a user (admin function)"""
+        user = User.query.get(user_id)
+        if not user:
+            return False, "User not found"
+
+        try:
+            db.session.delete(user)
+            db.session.commit()
+            return True, None
+        except Exception as e:
+            db.session.rollback()
+            return False, str(e)

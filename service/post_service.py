@@ -70,3 +70,18 @@ class PostService:
 
         posts = query.order_by(Post.created_at.desc()).all()
         return [post.to_dict() for post in posts]
+
+    @staticmethod
+    def delete_post(post_id):
+        """Delete a post (admin function)"""
+        post = Post.query.get(post_id)
+        if not post:
+            return False, "Post not found"
+
+        try:
+            db.session.delete(post)
+            db.session.commit()
+            return True, None
+        except Exception as e:
+            db.session.rollback()
+            return False, str(e)

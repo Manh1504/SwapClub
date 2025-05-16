@@ -11,6 +11,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
     posts = db.relationship('Post', backref='author', lazy=True)
     purchases = db.relationship('Order', foreign_keys='Order.buyer_id', backref='buyer', lazy=True)
     sales = db.relationship('Order', foreign_keys='Order.seller_id', backref='seller', lazy=True)
@@ -24,7 +25,8 @@ class User(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username
+            'username': self.username,
+            'is_admin': self.is_admin
         }
 
 

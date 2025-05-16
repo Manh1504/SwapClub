@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from config import Config
-from models import db
+from models import db, User
 from routes.user_routes import user_bp
 from routes.post_routes import post_bp
 from routes.order_routes import order_bp
@@ -26,6 +26,18 @@ def create_app(config_class=Config):
     # Create database tables
     with app.app_context():
         db.create_all()
+
+        # Create admin user if not exists
+        admin = db.session.query(db.exists().where(User.username == 'admin')).scalar()
+        if not admin:
+            UserService.create_user('admin', 'admin123', is_admin=True)
+
+    # Helper function to check if user is admin
+    def is_admin():
+        if 'user_id' not in session:
+            return False
+        user, _ = UserService.get_user_by_id(session['user_id'])
+        return user and user.is_admin
 
     # Web routes using templates
     @app.route('/')
@@ -67,9 +79,15 @@ def create_app(config_class=Config):
         # Lưu thông tin người dùng và token vào session
         session['user_id'] = result['user']['id']
         session['username'] = result['user']['username']
+        session['is_admin'] = result['user']['is_admin']
         session['token'] = result['token']
 
         flash('Đăng nhập thành công!', 'success')
+
+        # Chuyển hướng đến trang admin nếu là admin
+        if result['user']['is_admin']:
+            return redirect(url_for('admin_dashboard'))
+
         return redirect(url_for('main'))
 
     @app.route('/logout')
@@ -214,9 +232,130 @@ def create_app(config_class=Config):
             sales=sales
         )
 
+    # Admin routes
+    @app.route('/admin')
+    def admin_dashboard():
+        # Kiểm tra quyền admin
+        if not is_admin():
+            flash('Bạn không có quyền truy cập trang này', 'error')
+            return redirect(url_for('main'))
+
+        # Lấy tất cả bài đăng
+        all_posts = PostService.get_all_posts()
+
+        # Lấy tất cả người dùng
+        all_users = UserService.get_all_users()
+
+        # Lấy tất cả đơn hàng
+        all_orders = OrderService.get_all_orders()
+
+        return render_template(
+            'admin.html',
+            username=session.get('username'),
+            posts=all_posts,
+            users=all_users,
+            orders=all_orders
+        )
+
+    @app.route('/admin/delete_post/<int:post_id>', methods=['POST'])
+    def admin_delete_post(post_id):
+        # Kiểm tra quyền admin
+        if not is_admin():
+            flash('Bạn không có quyền thực hiện hành động này', 'error')
+            return redirect(url_for('main'))
+
+        success, error = PostService.delete_post(post_id)
+
+        if error:
+            flash(f'Lỗi khi xóa bài đăng: {error}', 'error')
+        else:
+            flash('Xóa bài đăng thành công!', 'success')
+
+        return redirect(url_for('admin_dashboard'))
+
+    @app.route('/admin/delete_user/<int:user_id>', methods=['POST'])
+    def admin_delete_user(user_id):
+        # Kiểm tra quyền admin
+        if not is_admin():
+            flash('Bạn không có quyền thực hiện hành động này', 'error')
+            return redirect(url_for('main'))
+
+        # Không cho phép xóa tài khoản admin hiện tại
+        if user_id == session['user_id']:
+            flash('Không thể xóa tài khoản admin hiện tại', 'error')
+            return redirect(url_for('admin_dashboard'))
+
+        success, error = UserService.delete_user(user_id)
+
+        if error:
+            flash(f'Lỗi khi xóa người dùng: {error}', 'error')
+        else:
+            flash('Xóa người dùng thành công!', 'success')
+
+        return redirect(url_for('admin_dashboard'))
+
     return app
 
 
 if __name__ == '__main__':
     app = create_app()
+    app.run(debug=True)html', post=post.to_dict(), username=session.get('username'))
+
+
+    @app.route('/order/create', methods=['POST'])
+    def create_order():
+        if 'user_id' not in session:
+            flash('Vui lòng đăng nhập', 'error')
+            return redirect(url_for('index'))
+
+        post_id = request.form.get('post_id')
+        quantity = request.form.get('quantity')
+
+        try:
+            post_id = int(post_id)
+            quantity = int(quantity)
+        except ValueError:
+            flash('Thông tin không hợp lệ', 'error')
+            return redirect(url_for('main'))
+
+        order, error = OrderService.create_order(post_id, session['user_id'], quantity)
+
+        if error:
+            flash(error, 'error')
+            return redirect(url_for('payment', post_id=post_id))
+
+        flash('Đặt hàng thành công!', 'success')
+        return redirect(url_for('user_profile'))
+
+
+    @app.route('/user')
+    def user_profile():
+        if 'user_id' not in session:
+            flash('Vui lòng đăng nhập', 'error')
+            return redirect(url_for('index'))
+
+        # Lấy thông tin người dùng
+        user, _ = UserService.get_user_by_id(session['user_id'])
+
+        # Lấy lịch sử đăng bài
+        posts = PostService.get_posts_by_user(session['user_id'])
+
+        # Lấy lịch sử mua hàng
+        purchases = OrderService.get_orders_by_buyer(session['user_id'])
+
+        # Lấy lịch sử bán hàng
+        sales = OrderService.get_orders_by_seller(session['user_id'])
+
+        return render_template(
+            'user.html',
+            username=session.get('username'),
+            posts=posts,
+            purchases=purchases,
+            sales=sales
+        )
+        return app
+
+if __name__ == '__main__':
+    app = create_app()
+
     app.run(debug=True, port=5050)
