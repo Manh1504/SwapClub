@@ -15,7 +15,7 @@
 
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header --> 
     <header>
         <div class="container header-container" style="position: sticky;">
             <h1 class="logo">SwapClub</h1>
@@ -37,7 +37,8 @@
         <div class="main-grid">
             <!-- Listings Column -->
             <div class="listings-column">
-                <h2>Đồ dùng học tập đã qua sử dụng</h2>
+                <h2>Xin chào, <span id="username-display"></span></h2>
+                <h2>Những đồ dùng bạn có thể quan tâm</h2>
                 <div id="listings-container">
                     <!-- Listings will be inserted here by JavaScript -->
                 </div>
@@ -119,5 +120,11 @@
     <script src="/static/js/main.js"></script>
     <!-- <script src="{{ url_for('static', filename='js/index.js') }}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+    <!-- Add any other Firebase services you need -->
 </body>
 </html>

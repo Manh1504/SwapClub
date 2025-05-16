@@ -60,32 +60,26 @@ function setupEventListeners() {
             return;
         }
         
-        // Simulate login (would connect to backend in a real app)
-        console.log('Login data:', { email, password, rememberMe });
-        
-        // Redirect to home page after successful login
-        // alert('Đăng nhập thành công!');
-        // window.location.href = 'main.html';
-        // fetch('/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ email, password, rememberMe })
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     if (data.success) {
-        //         window.location.href = '/home';
-        //     } else {
-        //         alert(data.message || 'Login failed');
-        //     }
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        //     alert('An error occurred during login');
-        // });
-        window.location.href = '/home';
+        localStorage.setItem('username', username);
+        fetch("http://" + hostname + port + "/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password,
+        })
+        })
+        .then(response => {
+        if (response.ok) {
+            alert('Đăng nhập thành công!');
+            window.location.href = '/home';
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    })
     });
     
     // Register form submission
@@ -128,7 +122,7 @@ function setupEventListeners() {
         .then(response => {
             if (response.ok) {
                 alert('Đăng ký thành công!');
-                window.location.href = '/home';
+                window.location.href = '/login';
             } 
             else {
                 throw new Error('Network response was not ok');
@@ -140,9 +134,10 @@ function setupEventListeners() {
 }
 
 document.querySelector('.btn-primary.btn-block').addEventListener('click', function(e) {
+    // Check if this is the sign up form by checking if agree-terms exists
     const agreeTerms = document.getElementById('agree-terms');
     
-    if (!agreeTerms.checked) {
+    if (agreeTerms && !agreeTerms.checked) {
         e.preventDefault(); // Prevent form submission
         alert('Vui lòng đồng ý với điều khoản sử dụng');
     }
@@ -175,3 +170,5 @@ fetch ("http://" + hostname + port +"/login", {
 .catch((error) => {
     console.error('Error:', error);
 });
+
+// Add this inside the login form submission handler

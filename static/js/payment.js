@@ -137,3 +137,10 @@ completePaymentBtn.addEventListener('click', () => {
     // Show success modal
     successModal.classList.remove('hidden');
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    displayUsername();
+});

@@ -4,7 +4,52 @@ import { getFirestore, collection, getDocs, query, orderBy } from 'firebase/fire
 // Assuming Firebase is initialized elsewhere
 const db = getFirestore();
 
-//Manh
+function logout(){
+    window.location.href="/login"
+    }
+
+//Kiểm tra phiên đăng nhập
+function checkLoginStatus() {
+    const sessionId = localStorage.getItem("sessionId");
+    const userId = localStorage.getItem("currentUserId");
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+    if (sessionId && userId) {
+        const sessionPath = isAdmin ? `admin/sessions/${sessionId}` : `users/${userId}/sessions/${sessionId}`;
+        const sessionRef = ref(db, sessionPath);
+
+        get(sessionRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const sessionData = snapshot.val();
+                const now = new Date().getTime();
+                const expirationTime = sessionData.expiresAt;
+
+                if (expirationTime > now) {
+                    update(ref(db, sessionPath), { lastActive: serverTimestamp() });
+                    console.log("Phiên đăng nhập hợp lệ");
+
+                    // Kiểm tra nếu không phải trang đăng nhập và signup thì mới chuyển hướng
+                    if ((window.location.href.includes("login.html"))) {
+                        return; // Đừng thực hiện điều hướng nếu đã ở trang login
+                    }
+
+                    if (isAdmin) {
+                        window.location.href = "/login";
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } else {
+                    logout();  // Nếu phiên hết hạn, đăng xuất
+                }
+            } else {
+                logout();  // Nếu session không tồn tại, đăng xuất
+            }
+        }).catch(() => {
+            logout();  // Nếu có lỗi trong việc lấy session, đăng xuất
+        });
+    }
+}
+
 async function get_posts() {
     try {
         // Reference to the 'posts' collection
@@ -31,6 +76,12 @@ async function get_posts() {
     
     export default get_posts;
 
+function displayUsername() {
+    const usernameDisplay = document.getElementById('username-display');
+    const username = localStorage.getItem('username');
+    usernameDisplay.textContent = username;
+}
+
 
 // DOM Elements
 const listingsContainer = document.getElementById('listings-container');
@@ -53,6 +104,7 @@ let selectedListingId = null;
 function init() {
     renderListings();
     setupEventListeners();
+    displayUsername();
 }
 
 // Render listings
