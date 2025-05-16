@@ -15,10 +15,12 @@
 
 body {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(to bottom right, #f9fafb, rgba(209, 250, 229, 0.3));
     color: #333;
     line-height: 1.6;
-
+    margin: 0;
 }
 
 .container {
@@ -122,6 +124,7 @@ header {
 /* Main Content Styles */
 main {
     padding: 32px 0;
+    flex: 1;
 }
 
 .main-grid {
@@ -374,8 +377,8 @@ main {
 footer {
     background-color: white;
     border-top: 1px solid #e5e7eb;
-    margin-top: 48px;
     padding: 24px 0;
     text-align: center;
     color: #6b7280;
+    margin-top: auto;
 }
