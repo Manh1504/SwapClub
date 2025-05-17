@@ -54,3 +54,9 @@ class OrderService:
         """Get all orders for a specific seller"""
         orders = Order.query.filter_by(seller_id=seller_id).order_by(Order.created_at.desc()).all()
         return [order.to_dict() for order in orders]
+
+    @staticmethod
+    def get_all_orders():
+        """Get all orders (admin function)"""
+        orders = Order.query.order_by(Order.created_at.desc()).all()
+        return [order.to_dict() for order in orders]

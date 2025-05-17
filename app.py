@@ -30,7 +30,7 @@ def create_app(config_class=Config):
         # Create admin user if not exists
         admin = db.session.query(db.exists().where(User.username == 'admin')).scalar()
         if not admin:
-            UserService.create_user('admin', 'admin123', is_admin=True)
+            UserService.create_user('admin', 'admin@example.com', '123', is_admin=True)
 
     # Helper function to check if user is admin
     def is_admin():
@@ -48,13 +48,14 @@ def create_app(config_class=Config):
     @app.route('/register', methods=['POST'])
     def register():
         username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
 
-        if not username or not password:
+        if not username or not email or not password:
             flash('Vui lòng điền đầy đủ thông tin', 'error')
             return redirect(url_for('index'))
 
-        user, error = UserService.create_user(username, password)
+        user, error = UserService.create_user(username, email, password)
         if error:
             flash(error, 'error')
             return redirect(url_for('index'))
@@ -64,10 +65,10 @@ def create_app(config_class=Config):
 
     @app.route('/login', methods=['POST'])
     def login():
-        username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
 
-        if not username or not password:
+        if not email or not password:
             flash('Vui lòng điền đầy đủ thông tin', 'error')
             return redirect(url_for('index'))
 
@@ -78,7 +79,7 @@ def create_app(config_class=Config):
 
         # Lưu thông tin người dùng và token vào session
         session['user_id'] = result['user']['id']
-        session['username'] = result['user']['username']
+        session['email'] = result['user']['email']
         session['is_admin'] = result['user']['is_admin']
         session['token'] = result['token']
 

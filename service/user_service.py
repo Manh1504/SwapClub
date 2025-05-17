@@ -4,16 +4,25 @@ from flask_jwt_extended import create_access_token
 
 class UserService:
     @staticmethod
-    def create_user(username, password, is_admin=False):
+    def create_user(username, email, password, is_admin=False):
         """Create a new user"""
         # Check if username already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             return None, "Username already exists"
 
+        # Check if email already exists
+        existing_email = User.query.filter_by(email=email).first()
+        if existing_email:
+            return None, "Email already exists"
+
         # Create new user
-        user = User(username=username, is_admin=is_admin)
-        user.set_password(password)
+        user = User(
+            username=username,
+            email=email,
+            password=password,
+            is_admin=is_admin
+        )
 
         try:
             db.session.add(user)
@@ -28,7 +37,7 @@ class UserService:
         """Authenticate a user and return a token"""
         user = User.query.filter_by(username=username).first()
 
-        if not user or not user.check_password(password):
+        if not user or user.password != password:
             return None, "Invalid username or password"
 
         # Create access token
