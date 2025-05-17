@@ -1,10 +1,14 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from service.order_service import OrderService
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from service.user_service import UserService
 from service.post_service import PostService
 
 order_bp = Blueprint('order', __name__, url_prefix='/api/orders')
+
+@order_bp.route('/')
+def orders():
+    return render_template('payment.html')
 
 
 @order_bp.route('/', methods=['POST'])

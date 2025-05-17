@@ -1,8 +1,9 @@
 function cancel() {
-    alert("Bạn có chắc chắn muốn hủy giao dịch không?");
-    // Clear selected item from localStorage
-    localStorage.removeItem('selectedItem');
-    window.location.href = '/home';
+    confirm("Bạn có chắc chắn muốn hủy giao dịch không?");
+    if (confirm) {
+        localStorage.removeItem('selectedItem');
+        window.location.href = '/api/posts';
+    }
 }
 
 
@@ -32,7 +33,7 @@ function init() {
         transactionData.item = itemData;
     } else {
         // Redirect back to main page if no item data
-        window.location.href = '/home';
+        window.location.href = '/api/posts';
     }
     
     // Setup event listeners
@@ -68,3 +69,31 @@ function renderItemSummary(item) {
     `;
 }
 
+async function transaction_confirmed() {
+    const invoice = [{username: localStorage.getItem('username'),
+        item: localStorage.getItem('selectedItem'),
+        paymentMethod: getElementById('payment-option-card').data-method,
+        price: localStorage.getItem('selectedItem').price,
+    }];
+    try {
+        const response = await fetch('/api/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoice)
+        });
+        if (!response.ok) {
+            alert('Lỗi khi tạo giao dịch');
+        }
+
+        const data = await response.json();
+        console.log('Giao dịch thành công:', data);
+        alert('Giao dịch thành công');
+        window.location.href = '/api/posts';
+    }
+    catch (error) {
+        console.error('Lỗi:', error);
+        alert('Đã xảy ra lỗi trong quá trình tạo giao dịch');
+    }
+}

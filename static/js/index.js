@@ -26,8 +26,7 @@ function setupEventListeners() {
                 targetForm.classList.add('active');
             }
         });
-    });
-}    
+    });    
     // Toggle password visibility
     togglePasswordButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -59,6 +58,7 @@ function setupEventListeners() {
             alert('Vui lòng điền đầy đủ thông tin đăng nhập.');
             return;
         }
+
     });
 
     
@@ -83,11 +83,12 @@ function setupEventListeners() {
             return;
         }
     });
+}
 
     // Hàm đăng nhập tài khoản
 const login = async (username, password) => {
   try {
-    const response = await fetch('/login', {
+    const response = await fetch('/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -100,10 +101,12 @@ const login = async (username, password) => {
     }
 
     const data = await response.json();
+    window.location.href = '/api/posts'; // Chuyển hướng đến trang chính sau khi đăng nhập thành công
     
     // Lưu token vào localStorage nếu có
     if (data.token) {
       localStorage.setItem('token', data.token);
+      localStorage.setItem('username', username);
     }
     
     return {
@@ -120,10 +123,12 @@ const login = async (username, password) => {
 };
 
 // Hàm đăng xuất
-const logout = () => {
-  localStorage.removeItem('token');
-  return { success: true };
-};
+// function logout() {
+//   localStorage.removeItem('token');
+//   localStorage.removeItem('username');
+//   window.location.href = '/login'; // Chuyển hướng đến trang đăng nhập
+//   return { success: false };
+// }
 
 // Hàm kiểm tra đã đăng nhập chưa
 const isLoggedIn = () => {
@@ -133,7 +138,7 @@ const isLoggedIn = () => {
 // Hàm đăng ký tài khoản
 const register = async (userData) => {
   try {
-    const response = await fetch('/register', {
+    const response = await fetch('/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -146,6 +151,10 @@ const register = async (userData) => {
     }
 
     const data = await response.json();
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('username', userData.username);
+    window.location.href = '/api/posts'; // Chuyển hướng đến trang chính sau khi đăng ký thành công
+    
     return {
       success: true,
       data: data

@@ -2,14 +2,27 @@
 import { getFirestore, collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 function init() {
+  get_username();
+  get_posts();
+}
 
+function get_username() {
+  const username = localStorage.getItem('username');
+  if (username) {
+    document.getElementById('username').textContent = `Xin chào, ${username}`;
+  } else {
+    document.getElementById('username').textContent = 'Xin chào, Khách';
+  }
 }
 
 function logout(){
-    alert("Bạn có chắc chắn muốn đăng xuất không?");
+    confirm("Bạn có chắc chắn muốn đăng xuất không?");
     window.location.href="/login"
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
 }
 
+// const initialListings = [];
 const initialListings = [];
 
 // DOM Elements
@@ -25,7 +38,6 @@ const cancelBtn = document.getElementById('cancel-btn');
 const listingForm = document.getElementById('listing-form');
 
 // Current state
-let listings = [...initialListings];
 let selectedListingId = null;
 
 // Render listings
@@ -91,7 +103,7 @@ const createPost = async (product_type, quantity, price, description = '', conta
     }
     
     // Gửi request
-    const response = await fetch('/post/create', {
+    const response = await fetch('/api/post', {
       method: 'POST',
       body: formData
     });
@@ -176,3 +188,30 @@ searchButton.addEventListener('click', handleSearch);
 searchInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') handleSearch();
 });
+
+async function get_posts() {
+  try {
+    const posts = await fetch('/api/post', 
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+
+    if(!response.ok) {
+      throw new Error('Lỗi khi lấy danh sách bài viết');
+    }
+
+    const data = await posts.json();
+    initialListings = data.posts;
+    let listings = [...initialListings]; 
+    renderListings();
+    return data.posts;
+  }
+  catch (error) {
+    console.error('Lỗi:', error.message);
+    return [];
+  }
+}
