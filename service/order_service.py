@@ -36,6 +36,10 @@ class OrderService:
             # Update post quantity
             post.quantity -= quantity
 
+            # If quantity becomes zero, mark post as inactive or delete it
+            if post.quantity == 0:
+                post.is_active = False
+
             db.session.add(order)
             db.session.commit()
             return order, None
@@ -60,3 +64,11 @@ class OrderService:
         """Get all orders (admin function)"""
         orders = Order.query.order_by(Order.created_at.desc()).all()
         return [order.to_dict() for order in orders]
+
+    @staticmethod
+    def get_order_by_id(order_id):
+        """Get order by ID"""
+        order = Order.query.get(order_id)
+        if not order:
+            return None
+        return order.to_dict()

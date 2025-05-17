@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from service.post_service import PostService
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from service.user_service import UserService
 
 post_bp = Blueprint('post', __name__, url_prefix='/api/posts')
 
@@ -19,6 +20,12 @@ def create_post():
 
     if not all([product_type, quantity, price, contact_info]):
         return jsonify({"error": "Missing required fields"}), 400
+
+    try:
+        quantity = int(quantity)
+        price = float(price)
+    except (ValueError, TypeError):
+        return jsonify({"error": "Quantity must be an integer and price must be a number"}), 400
 
     post, error = PostService.create_post(
         current_user_id,
@@ -71,9 +78,37 @@ def search_by_price():
     min_price = request.args.get('min')
     max_price = request.args.get('max')
 
-    # Convert to float if not None
-    min_price = float(min_price) if min_price else None
-    max_price = float(max_price) if max_price else None
+    try:
+        # Convert to float if not None
+        min_price = float(min_price) if min_price else None
+        max_price = float(max_price) if max_price else None
+    except ValueError:
+        return jsonify({"error": "Price must be a number"}), 400
 
     posts = PostService.search_posts_by_price_range(min_price, max_price)
     return jsonify({"posts": posts}), 200
+
+
+@post_bp.route('/<int:post_id>', methods=['DELETE'])
+@jwt_required()
+def delete_post(post_id):
+    current_user_id = get_jwt_identity()
+
+    # Kiểm tra nếu user hiện tại là admin hoặc là người tạo bài đăng
+    user, error = UserService.get_user_by_id(current_user_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    post, error = PostService.get_post_by_id(post_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    if not user.is_admin and post.user_id != current_user_id:
+        return jsonify({"error": "Unauthorized to delete this post"}), 403
+
+    success, error = PostService.delete_post(post_id)
+
+    if error:
+        return jsonify({"error": error}), 400
+
+    return jsonify({"message": "Post deleted successfully"}), 200
